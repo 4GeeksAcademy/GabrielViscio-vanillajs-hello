@@ -10,51 +10,30 @@ window.onload = function() {
   let adj = ["great", "big"];
   let noun = ["jogger", "racoon"];
   let extensions = [".com", ".net", ".us", ".io"];
-  let hacks = ["es", "it", "co"];
 
-  function generateDomains(pronoun, adj, noun, extensions, hacks) {
-    let domains = [];
-
-    // Generate standard domains
-    for (let p of pronoun) {
-      for (let a of adj) {
-        for (let n of noun) {
-          for (let ext of extensions) {
-            domains.push(`${p}${a}${n}${ext}`);
-          }
+  function createDomains(pronoun, adj, noun, extension) {
+    const domains = [];
+    for (let i = 0; i < pronoun.length; i++) {
+      for (let j = 0; j < adj.length; j++) {
+        for (let k = 0; k < noun.length; k++) {
+          domains.push(pronoun[i] + adj[j] + noun[k] + extension);
         }
       }
     }
-
-    // Generate domain hacks
-    for (let p of pronoun) {
-      for (let a of adj) {
-        for (let n of noun) {
-          for (let hack of hacks) {
-            let hackDomain = `${p}${a}${n}`;
-            if (hackDomain.endsWith(hack)) {
-              domains.push(`${hackDomain.slice(0, -hack.length)}.${hack}`);
-            }
-          }
-        }
-      }
-    }
-
     return domains;
   }
 
-  function displayDomains(domains) {
-    let domainList = document.getElementById("domainList");
-    domainList.innerHTML = "";
+  function displayDomains(domains, elementId) {
+    const domainList = document.getElementById(elementId);
     domains.forEach(domain => {
-      let p = document.createElement("p");
-      p.textContent = domain;
-      domainList.appendChild(p);
+      const listItem = document.createElement("li");
+      listItem.textContent = domain;
+      domainList.appendChild(listItem);
     });
   }
 
-  let domains = generateDomains(pronoun, adj, noun, extensions, hacks);
-  displayDomains(domains);
-
-  console.log("Hello Rigo from the console!");
+  extensions.forEach(extension => {
+    const domains = createDomains(pronoun, adj, noun, extension);
+    displayDomains(domains, `domain-list-${extension.substring(1)}`);
+  });
 };
