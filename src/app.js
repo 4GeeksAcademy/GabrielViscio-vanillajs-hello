@@ -11,7 +11,6 @@ window.onload = function() {
   let noun = ["jogger", "racoon"];
   let extensions = [".com", ".net", ".us", ".io"];
 
-  // Función para crear combinaciones de dominios
   function createDomains(pronoun, adj, noun, extension) {
     const domains = [];
     for (let i = 0; i < pronoun.length; i++) {
@@ -25,9 +24,9 @@ window.onload = function() {
     return domains;
   }
 
-  // Función para mostrar los dominios en el HTML
   function displayDomains(domains, elementId) {
     const domainList = document.getElementById(elementId);
+    // Recorre cada dominio
     for (let i = 0; i < domains.length; i++) {
       const listItem = document.createElement("li");
       listItem.textContent = domains[i];
@@ -35,19 +34,9 @@ window.onload = function() {
     }
   }
 
-  let extension = ".com";
-  let domains = createDomains(pronoun, adj, noun, extension);
-  displayDomains(domains, "domain-list-com");
-
-  extension = ".net";
-  domains = createDomains(pronoun, adj, noun, extension);
-  displayDomains(domains, "domain-list-net");
-
-  extension = ".us";
-  domains = createDomains(pronoun, adj, noun, extension);
-  displayDomains(domains, "domain-list-us");
-
-  extension = ".io";
-  domains = createDomains(pronoun, adj, noun, extension);
-  displayDomains(domains, "domain-list-io");
+  for (let i = 0; i < extensions.length; i++) {
+    let extension = extensions[i];
+    const domains = createDomains(pronoun, adj, noun, extension);
+    displayDomains(domains, `domain-list-${extension.substring(1)}`);
+  }
 };
